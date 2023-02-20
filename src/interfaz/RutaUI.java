@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Font;
@@ -17,6 +19,7 @@ import java.awt.event.ActionEvent;
 public class RutaUI extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
+	private JButton btnVerRutas, btnAadirRutas;
 
 	/**
 	 * Create the frame.
@@ -45,16 +48,14 @@ public class RutaUI extends JFrame implements ActionListener{
 		lblTitulo.setBounds(10, 11, 207, 33);
 		contentPane.add(lblTitulo);
 		
-		JButton btnVerRutas = new JButton("Ver Rutas");
-		btnVerRutas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnVerRutas = new JButton("Ver Rutas");
+		btnVerRutas.addActionListener(this);
 		btnVerRutas.setFont(new Font("Georgia", Font.PLAIN, 14));
 		btnVerRutas.setBounds(49, 55, 123, 23);
 		contentPane.add(btnVerRutas);
 		
-		JButton btnAadirRutas = new JButton("Añadir Rutas");
+		btnAadirRutas = new JButton("Añadir Rutas");
+		btnAadirRutas.addActionListener(this);
 		btnAadirRutas.setFont(new Font("Georgia", Font.PLAIN, 14));
 		btnAadirRutas.setBounds(49, 89, 123, 23);
 		contentPane.add(btnAadirRutas);
@@ -62,7 +63,13 @@ public class RutaUI extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (btnAadirRutas == e.getSource()) {
+			AnadirUI ventanaAnadir = new AnadirUI();
+			ventanaAnadir.setVisible(true);
+		}
+		if (btnVerRutas == e.getSource()) {
+			VerUI ventanaVer = new VerUI();
+			ventanaVer.setVisible(true);
+		}
 	}
 }
