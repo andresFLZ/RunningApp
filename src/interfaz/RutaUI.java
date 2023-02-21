@@ -66,10 +66,13 @@ public class RutaUI extends JFrame implements ActionListener{
 		if (btnAadirRutas == e.getSource()) {
 			AnadirUI ventanaAnadir = new AnadirUI();
 			ventanaAnadir.setVisible(true);
+			dispose();
 		}
 		if (btnVerRutas == e.getSource()) {
 			VerUI ventanaVer = new VerUI();
+			ventanaVer.llenarTabla();
 			ventanaVer.setVisible(true);
+			dispose();
 		}
 	}
 }

@@ -1,7 +1,9 @@
 package dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import logica.Ruta;
 
@@ -31,6 +33,27 @@ public class RutaDAO {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public ArrayList<Ruta> consultarRutas() {
+		ArrayList<Ruta> lista = new ArrayList<Ruta>();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			ps = db.conectar().prepareStatement("SELECT * FROM ruta");
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Ruta ruta = new Ruta(rs.getString("nombre"), rs.getString("lugarInicio"), rs.getString("lugarFinal"),
+						rs.getDouble("distancia"), rs.getString("duracion"), rs.getString("fecha"));
+				ruta.setVelocidadProm(rs.getDouble("velocidadPromedio"));
+				lista.add(ruta);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lista;
 	}
 	
 }

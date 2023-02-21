@@ -11,7 +11,6 @@ public class BaseDeDatos {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			cx = DriverManager.getConnection("jdbc:sqlite:rutas.db");
-			System.out.println("conexion exitosa");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

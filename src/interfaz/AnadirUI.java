@@ -153,12 +153,21 @@ public class AnadirUI extends JFrame implements ActionListener{
 						Double.parseDouble(txtDistancia.getText()), txtDuracion.getText(), txtFecha.getText());
 				if (dao.insertarRuta(ruta)) {
 					JOptionPane.showMessageDialog(null, "RUTA CORRECTAMENTE AGREGADA");
+					RutaUI ventanaP = new RutaUI();
+					ventanaP.setVisible(true);
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "ERROR1");
 				}
 			} catch (Exception e2) {
 				JOptionPane.showMessageDialog(null, "ERROR2");
 			}
+		}
+		
+		if (btnCancelar == e.getSource()) {
+			RutaUI ventanaP = new RutaUI();
+			ventanaP.setVisible(true);
+			dispose();
 		}
 	}
 }
