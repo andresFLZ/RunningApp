@@ -43,7 +43,7 @@ public class VerUI extends JFrame implements ActionListener {
 	}
 
 	private void iniciarComponentes() {
-		setBounds(100, 100, 693, 272);
+		setBounds(100, 100, 731, 272);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -53,11 +53,11 @@ public class VerUI extends JFrame implements ActionListener {
 		JLabel lblTitulo = new JLabel("RUTAS REALIZADAS");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Georgia", Font.BOLD, 18));
-		lblTitulo.setBounds(10, 11, 603, 27);
+		lblTitulo.setBounds(10, 11, 695, 27);
 		contentPane.add(lblTitulo);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 49, 657, 136);
+		scrollPane.setBounds(10, 49, 695, 136);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -82,7 +82,7 @@ public class VerUI extends JFrame implements ActionListener {
 		
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(this);
-		btnVolver.setBounds(268, 196, 89, 23);
+		btnVolver.setBounds(321, 196, 89, 23);
 		contentPane.add(btnVolver);
 	}
 

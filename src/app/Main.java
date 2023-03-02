@@ -1,10 +1,12 @@
 package app;
 
+import interfaz.RutaUI;
+
 public class Main {
 
 	public static void main(String[] args) {
-		Aplicacion aplicacion = new Aplicacion();
-
+		RutaUI ventanaP = new RutaUI();
+		ventanaP.setVisible(true);
 	}
 
 }
