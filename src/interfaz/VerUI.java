@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import dao.RutaDAO;
+import interfaz.recursos.RenderTable;
 import logica.Ruta;
 
 import javax.swing.JButton;
@@ -67,17 +68,9 @@ public class VerUI extends JFrame implements ActionListener {
 		model.addColumn("Nombre");
 		model.addColumn("Lugar de inicio");
 		model.addColumn("Lugar de finalización");
-		model.addColumn("Distancia (Km)");
-		model.addColumn("Tiempo");
 		model.addColumn("Fecha");
-		model.addColumn("Velocidad promedio (Km)");
+		model.addColumn("Detalle");
 		
-		table.getColumnModel().getColumn(1).setPreferredWidth(90);
-		table.getColumnModel().getColumn(2).setPreferredWidth(97);
-		table.getColumnModel().getColumn(3).setPreferredWidth(80);
-		table.getColumnModel().getColumn(4).setPreferredWidth(66);
-		table.getColumnModel().getColumn(5).setPreferredWidth(63);
-		table.getColumnModel().getColumn(6).setPreferredWidth(110);
 		scrollPane.setViewportView(table);
 		
 		btnVolver = new JButton("Volver");
@@ -90,17 +83,16 @@ public class VerUI extends JFrame implements ActionListener {
 		ArrayList<Ruta> lista = dao.consultarRutas();
 		
 		for (Ruta ruta : lista) {
-			Object[] fila = new Object[7];
-			fila[0] = ruta.getNombre();
-			fila[1] = ruta.getLugarInicio();
-			fila[2] = ruta.getLugarFinal();
-			fila[3] = ruta.getDistancia();
-			fila[4] = ruta.getDuracion();
-			fila[5] = ruta.getFecha();
-			fila[6] = ruta.getVelocidadProm();
-			
-			model.addRow(fila);
+		    Object[] fila = new Object[5];
+		    fila[0] = ruta.getNombre();
+		    fila[1] = ruta.getLugarInicio();
+		    fila[2] = ruta.getLugarFinal();
+		    fila[3] = ruta.getFecha();
+		    fila[4] = new JButton("Ver detalles");
+		    model.addRow(fila);
 		}
+		
+		this.table.setDefaultRenderer(Object.class, new RenderTable());
 	}
 	
 	@Override
@@ -113,3 +105,5 @@ public class VerUI extends JFrame implements ActionListener {
 		
 	}
 }
+
+
