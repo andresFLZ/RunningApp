@@ -7,9 +7,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
@@ -22,7 +26,7 @@ import logica.Ruta;
 
 import javax.swing.JButton;
 
-public class VerUI extends JFrame implements ActionListener {
+public class VerUI extends JFrame implements ActionListener, MouseListener {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -71,6 +75,8 @@ public class VerUI extends JFrame implements ActionListener {
 		model.addColumn("Fecha");
 		model.addColumn("Detalle");
 		
+		table.addMouseListener(this);
+		
 		scrollPane.setViewportView(table);
 		
 		btnVolver = new JButton("Volver");
@@ -101,7 +107,44 @@ public class VerUI extends JFrame implements ActionListener {
 			RutaUI ventanaP = new RutaUI();
 			ventanaP.setVisible(true);
 			dispose();
+		}	
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		int fila = table.rowAtPoint(e.getPoint());
+		int columna = table.columnAtPoint(e.getPoint());
+		
+		if(columna == 4) {
+			DetalleUI ventanaD = new DetalleUI();
+			ventanaD.llenarDatos(dao.obtenerRutaPorNombre((String) table.getValueAt(fila, 0)));
+			ventanaD.setVisible(true);
+			dispose();
 		}
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 }

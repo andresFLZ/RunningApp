@@ -9,6 +9,7 @@ public class Ruta {
 	private String duracion;
 	private String fecha;
 	private Double velocidadProm;
+	private String tiempoKm;
 	
 	public Ruta(String nombre, String lugarInicio, String lugarFinal, Double distancia, String duracion, String fecha) {
 		this.nombre = nombre;
@@ -18,6 +19,7 @@ public class Ruta {
 		this.lugarFinal = lugarFinal;
 		this.fecha = fecha;
 		this.velocidadProm = calcularVelocidadProm(distancia, obtenerMinutos(duracion));
+		this.tiempoKm = calcularTiempoKm(distancia, obtenerSegundos(duracion));
 	}
 
 	public String getNombre() {
@@ -76,10 +78,37 @@ public class Ruta {
 		this.velocidadProm = velocidadProm;
 	}
 	
+	public String getTiempoKm() {
+		return tiempoKm;
+	}
+
+	public void setTiempoKm(String tiempoKm) {
+		this.tiempoKm = tiempoKm;
+	}
+
 	private Double calcularVelocidadProm(Double distancia, Integer tiempo) {
 		double prom = (distancia / tiempo) * 60;
 		return Math.round(prom * 100.0) / 100.0;
 	}
+	
+	private String calcularTiempoKm(Double distancia, Integer tiempo) {
+		double segundosKm = tiempo/distancia;
+		int minutos = (int) (segundosKm / 60);
+	    int segundos = (int) (segundosKm % 60);
+	    return String.format("%d:%02d", minutos, segundos);
+	}
+	
+	public static int obtenerSegundos(String tiempo) {
+	    String[] partes = tiempo.split(":");
+	    Integer segundos = 0;
+	    if (partes.length == 2) {
+	    	segundos = (Integer.parseInt(partes[0]) * 60) + Integer.parseInt(partes[1]);
+	    } else if (partes.length == 3) {
+	    	segundos = (Integer.parseInt(partes[0]) * 3600) + (Integer.parseInt(partes[1]) * 60) + Integer.parseInt(partes[2]);
+	    }
+		return segundos;  
+	}
+
 	
 	private Integer obtenerMinutos(String tiempo) {
 	    String[] partes = tiempo.split(":");

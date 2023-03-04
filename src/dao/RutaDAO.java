@@ -18,7 +18,7 @@ public class RutaDAO {
 	public boolean insertarRuta(Ruta ruta) {
 		PreparedStatement ps = null;
 		try {
-			ps = db.conectar().prepareStatement("INSERT INTO ruta VALUES(null,?,?,?,?,?,?,?)");
+			ps = db.conectar().prepareStatement("INSERT INTO ruta VALUES(null,?,?,?,?,?,?,?,?)");
 			ps.setString(1, ruta.getNombre());
 			ps.setString(2, ruta.getLugarInicio());
 			ps.setString(3, ruta.getLugarFinal());
@@ -26,6 +26,7 @@ public class RutaDAO {
 			ps.setString(5, ruta.getDuracion());
 			ps.setString(6, ruta.getFecha());
 			ps.setDouble(7, ruta.getVelocidadProm());
+			ps.setString(8, ruta.getTiempoKm());
 			ps.executeUpdate();
 			db.desconectar();
 			return true;
@@ -47,6 +48,7 @@ public class RutaDAO {
 				Ruta ruta = new Ruta(rs.getString("nombre"), rs.getString("lugarInicio"), rs.getString("lugarFinal"),
 						rs.getDouble("distancia"), rs.getString("duracion"), rs.getString("fecha"));
 				ruta.setVelocidadProm(rs.getDouble("velocidadPromedio"));
+				ruta.setTiempoKm(rs.getString("tiempoKilometro"));
 				lista.add(ruta);
 			}
 		} catch (SQLException e) {
@@ -55,5 +57,29 @@ public class RutaDAO {
 		
 		return lista;
 	}
+	
+	public Ruta obtenerRutaPorNombre(String nombreRuta) {
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    Ruta ruta = null;
+	    
+	    try {
+	        ps = db.conectar().prepareStatement("SELECT * FROM ruta WHERE nombre = ?");
+	        ps.setString(1, nombreRuta);
+	        rs = ps.executeQuery();
+	        
+	        if (rs.next()) {
+	            ruta = new Ruta(rs.getString("nombre"), rs.getString("lugarInicio"), rs.getString("lugarFinal"),
+	                            rs.getDouble("distancia"), rs.getString("duracion"), rs.getString("fecha"));
+	            ruta.setVelocidadProm(rs.getDouble("velocidadPromedio"));
+	            ruta.setTiempoKm(rs.getString("tiempoKilometro"));
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return ruta;
+	}
+
 	
 }
