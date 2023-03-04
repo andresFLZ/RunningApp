@@ -51,6 +51,7 @@ public class RutaDAO {
 				ruta.setTiempoKm(rs.getString("tiempoKilometro"));
 				lista.add(ruta);
 			}
+			db.desconectar();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -74,11 +75,62 @@ public class RutaDAO {
 	            ruta.setVelocidadProm(rs.getDouble("velocidadPromedio"));
 	            ruta.setTiempoKm(rs.getString("tiempoKilometro"));
 	        }
+	        db.desconectar();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
 	    
 	    return ruta;
+	}
+
+	public boolean validarRutaExistente(String nombre) {
+	    boolean existe = false;
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+
+	    try {
+	        ps = db.conectar().prepareStatement("SELECT COUNT(*) FROM ruta WHERE nombre = ?");
+	        ps.setString(1, nombre);
+	        rs = ps.executeQuery();
+	        rs.next();
+	        int count = rs.getInt(1);
+	        if (count > 0) {
+	            existe = true;
+	        }
+	        db.desconectar();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return existe;
+	}
+
+	public boolean actualizarRuta(Ruta ruta) {
+	    boolean actualizacion = false;
+	    PreparedStatement ps = null;
+	    
+	    try {
+	        ps = db.conectar().prepareStatement("UPDATE ruta SET lugarInicio = ?, lugarFinal = ?, distancia = ?, duracion = ?, fecha = ?, velocidadPromedio = ?, tiempoKilometro = ? WHERE nombre = ?");
+	        ps.setString(1, ruta.getLugarInicio());
+	        ps.setString(2, ruta.getLugarFinal());
+	        ps.setDouble(3, ruta.getDistancia());
+	        ps.setString(4, ruta.getDuracion());
+	        ps.setString(5, ruta.getFecha());
+	        ps.setDouble(6, ruta.getVelocidadProm());
+	        ps.setString(7, ruta.getTiempoKm());
+	        ps.setString(8, ruta.getNombre());
+	        
+	        int filasActualizadas = ps.executeUpdate();
+	        
+	        if (filasActualizadas > 0) {
+	        	actualizacion = true;
+	        }
+	        db.desconectar();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return actualizacion;
 	}
 
 	

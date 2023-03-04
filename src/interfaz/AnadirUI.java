@@ -108,7 +108,7 @@ public class AnadirUI extends JFrame implements ActionListener{
 		lblDuracion.setBounds(145, 178, 118, 20);
 		contentPane.add(lblDuracion);
 		
-		btnAñadir = new JButton("Añadir");
+		btnAñadir = new JButton("Guardar");
 		btnAñadir.addActionListener(this);
 		btnAñadir.setFont(new Font("Georgia", Font.PLAIN, 14));
 		btnAñadir.setBounds(10, 248, 118, 23);
@@ -145,22 +145,50 @@ public class AnadirUI extends JFrame implements ActionListener{
 		contentPane.add(lblFecha);
 	}
 
+	public void actualizarDatos(Ruta ruta) {
+		txtNombre.setText(ruta.getNombre());
+		txtFecha.setText(ruta.getFecha());
+		txtPuntoP.setText(ruta.getLugarInicio());
+		txtPuntoL.setText(ruta.getLugarFinal());
+		txtDistancia.setText(Double.toString(ruta.getDistancia()));
+		txtDuracion.setText(ruta.getDuracion());
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (btnAñadir == e.getSource()) {
-			try {
-				Ruta ruta = new Ruta(txtNombre.getText(), txtPuntoP.getText(), txtPuntoL.getText(), 
-						Double.parseDouble(txtDistancia.getText()), txtDuracion.getText(), txtFecha.getText());
-				if (dao.insertarRuta(ruta)) {
-					JOptionPane.showMessageDialog(null, "RUTA CORRECTAMENTE AGREGADA");
-					RutaUI ventanaP = new RutaUI();
-					ventanaP.setVisible(true);
-					dispose();
-				} else {
-					JOptionPane.showMessageDialog(null, "ERROR1");
+			
+			if (dao.validarRutaExistente(txtNombre.getText())) {
+				try {
+					Ruta ruta = new Ruta(txtNombre.getText(), txtPuntoP.getText(), txtPuntoL.getText(), 
+							Double.parseDouble(txtDistancia.getText()), txtDuracion.getText(), txtFecha.getText());
+					if (dao.actualizarRuta(ruta)) {
+						JOptionPane.showMessageDialog(null, "RUTA CORRECTAMENTE ACTUALIZADA");
+						RutaUI ventanaP = new RutaUI();
+						ventanaP.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "ERROR1");
+					}
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "ERROR2");
 				}
-			} catch (Exception e2) {
-				JOptionPane.showMessageDialog(null, "ERROR2");
+			}
+			else {
+				try {
+					Ruta ruta = new Ruta(txtNombre.getText(), txtPuntoP.getText(), txtPuntoL.getText(), 
+							Double.parseDouble(txtDistancia.getText()), txtDuracion.getText(), txtFecha.getText());
+					if (dao.insertarRuta(ruta)) {
+						JOptionPane.showMessageDialog(null, "RUTA CORRECTAMENTE AGREGADA");
+						RutaUI ventanaP = new RutaUI();
+						ventanaP.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "ERROR1");
+					}
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "ERROR2");
+				}
 			}
 		}
 		

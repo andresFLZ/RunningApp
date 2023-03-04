@@ -155,6 +155,7 @@ public class DetalleUI extends JFrame implements ActionListener {
 		contentPane.add(lblTiempoKmR);
 		
 		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(this);
 		btnEditar.setFont(new Font("Georgia", Font.PLAIN, 11));
 		btnEditar.setBounds(60, 276, 89, 23);
 		contentPane.add(btnEditar);
@@ -177,12 +178,26 @@ public class DetalleUI extends JFrame implements ActionListener {
 		lblTiempoKmR.setText(ruta.getTiempoKm());
 	}
 	
+	private Ruta capturarDatos() {
+		
+		return new Ruta(lblNombreR.getText(), lblLugarInicioR.getText(), 
+				lblLugarFinalR.getText(), Double.parseDouble(lblDistanciaR.getText()), 
+				lblTiempoR.getText(), lblFechaR.getText());
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (btnVolver == e.getSource()) {
 			VerUI ventanaV = new VerUI();
 			ventanaV.llenarTabla();
 			ventanaV.setVisible(true);
+			dispose();
+		}
+		
+		if (btnEditar == e.getSource()) {
+			AnadirUI ventanaA = new AnadirUI();
+			ventanaA.actualizarDatos(this.capturarDatos());
+			ventanaA.setVisible(true);
 			dispose();
 		}
 	}
