@@ -133,5 +133,64 @@ public class RutaDAO {
 	    return actualizacion;
 	}
 
+	public ArrayList<Double> obtenerDistancias() {
+	    ArrayList<Double> distancias = new ArrayList<>();
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	    	ps = db.conectar().prepareStatement("SELECT distancia FROM ruta");
+	    	rs = ps.executeQuery();
+	    			
+	        while (rs.next()) {
+	            distancias.add(rs.getDouble("distancia"));
+	        }
+	        rs.close();
+	        db.desconectar();
+	    } catch (SQLException e) {
+	        System.out.println(e.getMessage());
+	    }
+	    return distancias;
+	}
+	
+	public ArrayList<Double> obtenerVelocidadesP() {
+	    ArrayList<Double> velocidades = new ArrayList<>();
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	    	ps = db.conectar().prepareStatement("SELECT velocidadPromedio FROM ruta");
+	    	rs = ps.executeQuery();
+	    			
+	        while (rs.next()) {
+	        	velocidades.add(rs.getDouble("velocidadPromedio"));
+	        }
+	        rs.close();
+	        db.desconectar();
+	    } catch (SQLException e) {
+	        System.out.println(e.getMessage());
+	    }
+	    return velocidades;
+	}
+
+	public ArrayList<String> obtenerTiemposKm() {
+	    ArrayList<String> tiempos = new ArrayList<>();
+	    PreparedStatement ps = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	    	ps = db.conectar().prepareStatement("SELECT tiempoKilometro FROM ruta");
+	    	rs = ps.executeQuery();
+	    			
+	        while (rs.next()) {
+	        	tiempos.add(rs.getString("tiempoKilometro"));
+	        }
+	        rs.close();
+	        db.desconectar();
+	    } catch (SQLException e) {
+	        System.out.println(e.getMessage());
+	    }
+	    return tiempos;
+	}
 	
 }

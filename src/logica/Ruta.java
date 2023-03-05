@@ -1,5 +1,9 @@
 package logica;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
 public class Ruta {
 
 	private String nombre;
@@ -120,6 +124,38 @@ public class Ruta {
 	    } else {
 	        throw new IllegalArgumentException("El tiempo no está en un formato válido");
 	    }
+	}
+
+	public static String distanciaTotalRecorrida(ArrayList<Double> lista) {
+		double sumatoria = 0;
+		
+	    for (double d : lista) {
+	        sumatoria += d;
+	    }
+	    
+		return (Math.floor(sumatoria * 10.0) / 10.0) + " km";
+	}
+	
+	public static String velocidadPromedioTotal(ArrayList<Double> lista) {
+	    double suma = 0;
+
+	    for (Double num : lista) {
+	        suma += num;
+	    }
+	    double promedio = suma / lista.size();
+	    
+	    return (Math.floor(promedio * 10.0) / 10.0) + " Km/h";
+	}
+	
+	public static String tiempoKmTotal(ArrayList<String> lista) {
+		Integer suma = 0;
+		
+		for (String tiempo : lista) {
+			suma += obtenerSegundos(tiempo);
+		}
+		
+		LocalTime tiempo = LocalTime.ofSecondOfDay(suma / lista.size());
+	    return tiempo.format(DateTimeFormatter.ofPattern("mm:ss"));
 	}
 
 	

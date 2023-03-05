@@ -33,6 +33,7 @@ public class VerUI extends JFrame implements ActionListener, MouseListener {
 	private JButton btnVolver;
 	private RutaDAO dao = new RutaDAO();
 	private DefaultTableModel model;
+	private JButton btnEstadisticas;
 	
 	/**
 	 * Create the frame.
@@ -81,8 +82,13 @@ public class VerUI extends JFrame implements ActionListener, MouseListener {
 		
 		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(this);
-		btnVolver.setBounds(321, 196, 89, 23);
+		btnVolver.setBounds(184, 196, 89, 23);
 		contentPane.add(btnVolver);
+		
+		btnEstadisticas = new JButton("Revisar estadisticas");
+		btnEstadisticas.addActionListener(this);
+		btnEstadisticas.setBounds(401, 196, 155, 23);
+		contentPane.add(btnEstadisticas);
 	}
 
 	public void llenarTabla() {
@@ -107,7 +113,14 @@ public class VerUI extends JFrame implements ActionListener, MouseListener {
 			RutaUI ventanaP = new RutaUI();
 			ventanaP.setVisible(true);
 			dispose();
-		}	
+		}
+		
+		if (btnEstadisticas == e.getSource()) {
+			EstadisticaUI ventanaE = new EstadisticaUI();
+			ventanaE.llenarDatos();
+			ventanaE.setVisible(true);
+			dispose();
+		}
 	}
 
 	@Override

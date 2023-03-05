@@ -171,10 +171,10 @@ public class DetalleUI extends JFrame implements ActionListener {
 		lblNombreR.setText(ruta.getNombre());
 		lblLugarInicioR.setText(ruta.getLugarInicio());
 		lblLugarFinalR.setText(ruta.getLugarFinal());
-		lblDistanciaR.setText(Double.toString(ruta.getDistancia()));
+		lblDistanciaR.setText((Double.toString(ruta.getDistancia())) + " Km");
 		lblTiempoR.setText(ruta.getDuracion());
 		lblFechaR.setText(ruta.getFecha());
-		lblVelocidadPR.setText(Double.toString(ruta.getVelocidadProm()));
+		lblVelocidadPR.setText((Double.toString(ruta.getVelocidadProm())) + " Km/h");
 		lblTiempoKmR.setText(ruta.getTiempoKm());
 	}
 	
