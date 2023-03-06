@@ -187,7 +187,7 @@ public class AnadirUI extends JFrame implements ActionListener{
 						JOptionPane.showMessageDialog(null, "ERROR1");
 					}
 				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null, "ERROR2");
+					JOptionPane.showMessageDialog(null, "ERROR22");
 				}
 			}
 		}

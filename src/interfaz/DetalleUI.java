@@ -181,7 +181,7 @@ public class DetalleUI extends JFrame implements ActionListener {
 	private Ruta capturarDatos() {
 		
 		return new Ruta(lblNombreR.getText(), lblLugarInicioR.getText(), 
-				lblLugarFinalR.getText(), Double.parseDouble(lblDistanciaR.getText()), 
+				lblLugarFinalR.getText(), Double.parseDouble(lblDistanciaR.getText().substring(0, lblDistanciaR.getText().indexOf(" "))), 
 				lblTiempoR.getText(), lblFechaR.getText());
 	}
 	
